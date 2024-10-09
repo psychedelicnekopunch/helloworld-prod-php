@@ -1,0 +1,21 @@
+
+version: "3"
+
+services:
+    helloworld-prod-php-app:
+        image: nginx:1.27.2
+        working_dir: /var/www/html
+        volumes:
+            - ./app:/var/www/html
+            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+        ports:
+            - 8080:80
+        tty: true
+        depends_on:
+            - helloworld-prod-php-php
+    helloworld-prod-php-php:
+        # https://hub.docker.com/_/php
+        image: php:8.3.10-fpm
+        working_dir: /var/www/html
+        volumes:
+            - ./app:/var/www/html
